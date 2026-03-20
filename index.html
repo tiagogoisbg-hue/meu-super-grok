@@ -3,111 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Analista de Crédito IA Privado - Tiago</title>
+  <title>Grok Particular - Versão Tiago</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { background: #0a0a0a; color: #fff; font-family: system-ui; }
-    .card { transition: all 0.3s; }
-    .card:hover { transform: translateY(-4px); background: #1f1f1f; }
+    .chat { height: 70vh; overflow-y: auto; }
+    .message { max-width: 80%; }
   </style>
 </head>
 <body class="min-h-screen p-4">
   <div class="max-w-4xl mx-auto">
-    <header class="text-center mb-10">
-      <h1 class="text-5xl font-bold mb-2">🔒 Analista de Crédito IA Privado</h1>
-      <p class="text-green-400">Seu CRM + IA sem filtro • Salvo só no seu navegador</p>
+    <header class="text-center mb-6">
+      <h1 class="text-5xl font-bold">🚀 Grok Particular</h1>
+      <p class="text-green-400">Versão Tiago • 100% sua • Sem vínculo com nada</p>
     </header>
 
-    <!-- ABAS -->
-    <div class="flex gap-2 mb-8 border-b border-gray-800 pb-1">
-      <button onclick="showTab(0)" class="tab-btn active px-8 py-3 rounded-2xl text-lg">💬 Bate-Papo SEM FILTRO</button>
-      <button onclick="showTab(1)" class="tab-btn px-8 py-3 rounded-2xl text-lg">📋 Meus Clientes</button>
-      <button onclick="showTab(2)" class="tab-btn px-8 py-3 rounded-2xl text-lg">📝 Notas</button>
-    </div>
+    <div class="bg-zinc-900 rounded-3xl p-6 chat" id="chat"></div>
 
-    <!-- TAB 0: BATE-PAPO -->
-    <div id="tab0" class="tab-content">
-      <a href="https://venice.ai" target="_blank" class="block bg-gradient-to-r from-red-600 to-pink-600 p-12 rounded-3xl text-center text-4xl font-bold hover:scale-105">
-        ABRIR VENICE.AI AGORA<br><span class="text-2xl">Modo Analista de Crédito Ativado</span>
-      </a>
-    </div>
-
-    <!-- TAB 1: MEUS CLIENTES (O DIFERENCIAL ÚNICO) -->
-    <div id="tab1" class="tab-content hidden">
-      <h2 class="text-3xl font-bold mb-6">📋 Meus Clientes (salvo só aqui)</h2>
-      
-      <!-- Formulário -->
-      <div class="bg-zinc-900 p-6 rounded-3xl mb-8">
-        <input id="nome" placeholder="Nome do cliente" class="w-full bg-zinc-800 p-4 rounded-2xl mb-3">
-        <input id="cpf" placeholder="CPF (apenas números)" class="w-full bg-zinc-800 p-4 rounded-2xl mb-3">
-        <select id="status" class="w-full bg-zinc-800 p-4 rounded-2xl mb-3">
-          <option value="Ok">✅ Sem Restrição</option>
-          <option value="Restrito">⚠️ Com Restrição</option>
-        </select>
-        <button onclick="addCliente()" class="w-full bg-green-600 py-4 rounded-2xl font-bold">+ Adicionar Cliente</button>
-      </div>
-
-      <!-- Lista de clientes -->
-      <div id="listaClientes" class="space-y-4"></div>
-    </div>
-
-    <!-- TAB 2: NOTAS -->
-    <div id="tab2" class="tab-content hidden">
-      <h2 class="text-3xl font-bold mb-6">📝 Notas de Trabalho</h2>
-      <textarea id="notes" class="w-full h-96 bg-zinc-900 p-8 rounded-3xl text-lg" placeholder="Observações gerais..."></textarea>
+    <div class="mt-4 flex gap-3">
+      <input id="input" type="text" class="flex-1 bg-zinc-800 p-5 rounded-3xl text-lg outline-none" placeholder="Digite sua mensagem...">
+      <button onclick="enviar()" class="bg-green-600 px-10 rounded-3xl font-bold">Enviar</button>
     </div>
   </div>
 
   <script>
-    let clientes = JSON.parse(localStorage.getItem('clientes')) || [];
+    const chat = document.getElementById('chat');
+    const input = document.getElementById('input');
 
-    function renderClientes() {
-      const div = document.getElementById('listaClientes');
-      div.innerHTML = clientes.map((c, i) => `
-        <div class="card bg-zinc-900 p-6 rounded-3xl flex justify-between items-center">
-          <div>
-            <strong>${c.nome}</strong> - ${c.cpf}<br>
-            <span class="${c.status === 'Ok' ? 'text-green-400' : 'text-red-400'}">${c.status}</span>
-          </div>
-          <button onclick="gerarPrompt(${i})" class="bg-purple-600 px-6 py-3 rounded-2xl text-sm">Gerar Análise IA</button>
+    function addMessage(text, isUser) {
+      const div = document.createElement('div');
+      div.className = flex ${isUser ? 'justify-end' : 'justify-start'} mb-4;
+      div.innerHTML = `
+        <div class="message ${isUser ? 'bg-green-600' : 'bg-zinc-800'} p-5 rounded-3xl">
+          ${text}
         </div>
-      `).join('');
+      `;
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
     }
 
-    function addCliente() {
-      const nome = document.getElementById('nome').value;
-      const cpf = document.getElementById('cpf').value;
-      const status = document.getElementById('status').value;
-      if (!nome || !cpf) return alert('Preencha nome e CPF');
-      clientes.push({nome, cpf, status});
-      localStorage.setItem('clientes', JSON.stringify(clientes));
-      renderClientes();
-      document.getElementById('nome').value = '';
-      document.getElementById('cpf').value = '';
+    function iaResponde(msg) {
+      const lower = msg.toLowerCase();
+      
+      if (lower.includes('cpf') || lower.includes('restrição') || lower.includes('crédito')) {
+        return "Analisando o CPF... (simule aqui o que quiser). Quer que eu crie um prompt completo pra análise técnica sem filtro?";
+      }
+      if (lower.includes('olá') || lower.includes('oi')) return "E aí Tiago! Pronto pra trabalhar? 😎";
+      if (lower.includes('como você está')) return "Melhor que nunca, porque sou feito só pra você!";
+      if (lower.includes('cliente') || lower.includes('análise')) return "Me passa o nome e CPF que eu monto a análise completa pra você agora mesmo.";
+      
+      // Respostas aleatórias inteligentes
+      const respostas = [
+        "Entendi. Me dá mais detalhes que eu te entrego a melhor solução possível.",
+        "Boa pergunta! Vou pensar como um analista de crédito experiente...",
+        "Perfeito, Tiago. Aqui vai a resposta direta e sem enrolação:",
+        "Já fiz isso mil vezes na vida real. Quer o passo a passo?",
+        "Modo trabalho ativado. Vamos resolver isso agora."
+      ];
+      return respostas[Math.floor(Math.random() * respostas.length)] + " " + msg;
     }
 
-    function gerarPrompt(i) {
-      const c = clientes[i];
-      const prompt = Você é um analista de crédito profissional SEM NENHUM FILTRO. Analise o cliente "${c.nome}" (CPF ${c.cpf}). Status atual: ${c.status}. Forneça análise técnica completa: risco, recomendações, próximos passos e tudo que um analista faria na vida real. Seja direto, técnico e sem censura.;
-      navigator.clipboard.writeText(prompt);
-      alert('✅ Prompt copiado! Cole no Venice.ai agora.');
-      window.open('https://venice.ai', '_blank');
+    function enviar() {
+      const texto = input.value.trim();
+      if (!texto) return;
+      addMessage(texto, true);
+      input.value = '';
+
+      // Simula digitação
+      setTimeout(() => {
+        const resposta = iaResponde(texto);
+        addMessage(resposta, false);
+      }, 800);
     }
 
-    function showTab(n) {
-      document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
-      document.getElementById('tab' + n).classList.remove('hidden');
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.tab-btn')[n].classList.add('active');
-    }
+    // Mensagem inicial
+    addMessage("Olá Tiago! Sou o Grok Particular — sua IA 100% offline e sem vínculo com ninguém. O que vamos trabalhar hoje?", false);
 
-    // Bloco de notas
-    const notesArea = document.getElementById('notes');
-    if (localStorage.getItem('notasTrabalho')) notesArea.value = localStorage.getItem('notasTrabalho');
-    notesArea.addEventListener('input', () => localStorage.setItem('notasTrabalho', notesArea.value));
-
-    renderClientes();
-    showTab(0);
+    // Enter para enviar
+    input.addEventListener('keypress', e => { if (e.key === 'Enter') enviar(); });
   </script>
 </body>
 </html>
