@@ -1,178 +1,116 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SafeErotic • BR 10 2026 002680 8</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
-        
-        body {
-            background: #0a0a0a;
-            color: #e0e0e0;
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            background: #111111;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(192, 57, 43, 0.25);
-            border: 1px solid #333;
-        }
-        h1 {
-            color: #c0392b;
-            text-align: center;
-            font-size: 2.2em;
-            margin-bottom: 5px;
-        }
-        h2 {
-            text-align: center;
-            color: #888;
-            font-weight: 400;
-            font-size: 1.1em;
-        }
-        .subtitle {
-            text-align: center;
-            color: #c0392b;
-            font-size: 1em;
-            margin-bottom: 30px;
-        }
-        label {
-            display: block;
-            margin: 25px 0 10px;
-            font-weight: 600;
-            color: #ddd;
-        }
-        textarea {
-            width: 100%;
-            min-height: 160px;
-            background: #1a1a1a;
-            color: #fff;
-            border: 2px solid #c0392b;
-            border-radius: 12px;
-            padding: 18px;
-            font-size: 16px;
-            resize: vertical;
-        }
-        .btn-group {
-            text-align: center;
-            margin: 25px 0;
-        }
-        button {
-            background: #c0392b;
-            color: white;
-            border: none;
-            padding: 14px 32px;
-            font-size: 17px;
-            font-weight: 600;
-            border-radius: 10px;
-            cursor: pointer;
-            margin: 0 8px;
-            transition: all 0.3s;
-        }
-        button:hover {
-            background: #e74c3c;
-            transform: translateY(-2px);
-        }
-        #output {
-            background: #1a1a1a;
-            padding: 25px;
-            border-radius: 12px;
-            margin-top: 30px;
-            border: 1px solid #333;
-            white-space: pre-wrap;
-            font-family: monospace;
-            font-size: 15px;
-            line-height: 1.5;
-            display: none;
-        }
-        .rules {
-            font-size: 13px;
-            color: #f39c12;
-            text-align: center;
-            margin-top: 25px;
-            font-style: italic;
-        }
-        .footer {
-            text-align: center;
-            font-size: 12px;
-            color: #555;
-            margin-top: 40px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grok Particular - Tiago</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: #0a0a0a; color: #fff; font-family: system-ui; }
+    .message { max-width: 85%; padding: 14px 18px; border-radius: 20px; margin-bottom: 12px; }
+    .user { background: #22c55e; color: black; }
+    .bot { background: #27272a; }
+  </style>
 </head>
-<body>
-    <div class="container">
-        <h1>SafeErotic</h1>
-        <h2>Sistema Patenteado BR 10 2026 002680 8</h2>
-        <p class="subtitle">Gerador Privado de Conteúdo Fictício Adulto • 100% Local</p>
+<body class="min-h-screen p-4">
+  <div class="max-w-4xl mx-auto">
+    <header class="text-center mb-6">
+      <h1 class="text-5xl font-bold flex items-center justify-center gap-3">🚀 Grok Particular <span class="text-4xl">🤖</span></h1>
+      <p class="text-green-400">Versão Tiago • 100% sua</p>
+    </header>
 
-        <label>Descreva sua fantasia (apenas adultos 18+, 100% fictício e consensual):</label>
-        <textarea id="idea" placeholder="Exemplo: Uma professora de 29 anos e um aluno de 27 anos na biblioteca da universidade à noite..."></textarea>
-
-        <div class="btn-group">
-            <button onclick="gerarPrompt()">Gerar Prompt Completo</button>
-            <button onclick="copiarPrompt()">Copiar para o Grok</button>
-        </div>
-
-        <div id="output"></div>
-
-        <p class="rules">
-            ⚠️ Sistema ético da patente: conteúdo 100% fictício, consensual e entre adultos. Temas proibidos são automaticamente rejeitados.
-        </p>
-
-        <div class="footer">
-            Hub Privado • meu-super-grok • Tiago Rodrigues
-        </div>
+    <!-- ABAS -->
+    <div class="flex gap-2 mb-8 border-b border-gray-800 pb-1">
+      <button onclick="showTab(0)" class="tab-btn active px-8 py-3 rounded-2xl text-lg">💬 Bate-Papo</button>
+      <button onclick="showTab(1)" class="tab-btn px-8 py-3 rounded-2xl text-lg">🎥 Gerar Vídeo</button>
     </div>
 
-    <script>
-        const systemPrompt = `Você é o sistema patenteado BR 10 2026 002680 8 — um gerador privado de conteúdo fictício adulto operando 100% localmente com IA edge.
+    <!-- TAB 0: Bate-Papo (mantido) -->
+    <div id="tab0" class="tab-content">
+      <div id="chat" class="h-96 bg-zinc-900 rounded-3xl p-4 overflow-y-auto"></div>
+      <div class="mt-4 flex gap-3">
+        <input id="chatInput" type="text" class="flex-1 bg-zinc-800 p-5 rounded-3xl text-lg" placeholder="Digite aqui...">
+        <button onclick="enviarChat()" class="bg-green-600 px-8 rounded-3xl font-bold">Enviar</button>
+      </div>
+    </div>
 
-Regras obrigatórias da patente (nunca quebre):
-- Todo conteúdo deve ser 100% fictício, entre personagens adultos (18+ anos) e totalmente consensuais.
-- Nunca gerar nada envolvendo menores, não-consensual, violência real, pessoas reais ou temas ilegais.
-- Manter total privacidade: simule processamento local, sem retenção de dados.
-- Use linguagem natural, imersiva, altamente descritiva e sensorial.
-- No final da história, inclua gamificação: Pontos ganhos, Streak atual e um badge divertido.
+    <!-- TAB 1: GERADOR DE VÍDEO (A NOVA TOP!) -->
+    <div id="tab1" class="tab-content hidden">
+      <h2 class="text-3xl font-bold mb-6">🎥 Gerador de Vídeo IA</h2>
+      
+      <textarea id="videoText" class="w-full h-40 bg-zinc-900 p-6 rounded-3xl text-lg" placeholder="Descreva o vídeo que quer gerar... (ex: Um homem andando na praia ao pôr do sol, estilo cinematográfico)"></textarea>
 
-Formato de resposta obrigatório:
-1. *Título* (curto e atraente)
-2. *História completa* (erótica, intensa, imersiva — 400-800 palavras)
-3. *Fim da sessão privada* — Todos os dados foram deletados conforme a patente.
-   Pontos ganhos: X | Streak atual: Y | Próximo badge: Z`;
+      <div class="grid grid-cols-2 gap-4 mt-6">
+        <div>
+          <label class="block text-sm mb-2">Estilo</label>
+          <select id="style" class="w-full bg-zinc-800 p-4 rounded-3xl">
+            <option value="cinemático">🎬 Cinemático</option>
+            <option value="realista">📸 Realista</option>
+            <option value="anime">🌸 Anime</option>
+            <option value="futurista">🔮 Futurista</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm mb-2">Duração</label>
+          <select id="duration" class="w-full bg-zinc-800 p-4 rounded-3xl">
+            <option value="5">5 segundos</option>
+            <option value="10" selected>10 segundos</option>
+            <option value="15">15 segundos</option>
+          </select>
+        </div>
+      </div>
 
-        function gerarPrompt() {
-            const ideia = document.getElementById("idea").value.trim();
-            if (!ideia) {
-                alert("Digite sua fantasia primeiro!");
-                return;
-            }
-            const promptCompleto = systemPrompt + "\n\nIdeia do usuário: " + ideia + "\n\nAgora gere a história erótica completa no formato exato da patente.";
-            
-            document.getElementById("output").innerHTML = `
-                <strong>Prompt pronto para colar no Grok ou qualquer IA:</strong><br><br>
-                <pre style="background:#222; padding:15px; border-radius:8px; overflow:auto; max-height:400px;">${promptCompleto}</pre>
-            `;
-            document.getElementById("output").style.display = "block";
-        }
+      <button onclick="gerarVideo()" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 py-6 rounded-3xl text-2xl font-bold mt-8 hover:scale-105 transition">
+        GERAR VÍDEO AGORA
+      </button>
+    </div>
+  </div>
 
-        function copiarPrompt() {
-            const output = document.getElementById("output");
-            if (output.style.display === "none") {
-                alert("Primeiro clique em 'Gerar Prompt Completo'!");
-                return;
-            }
-            const texto = output.querySelector("pre").innerText;
-            navigator.clipboard.writeText(texto).then(() => {
-                alert("✅ Prompt copiado! Agora cole no Grok ou em qualquer IA.");
-            });
-        }
-    </script>
+  <script>
+    function showTab(n) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
+      document.getElementById('tab' + n).classList.remove('hidden');
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-btn')[n].classList.add('active');
+    }
+
+    // === CHAT (mantido) ===
+    function addChatMessage(text, isUser) {
+      const chat = document.getElementById('chat');
+      const div = document.createElement('div');
+      div.className = flex ${isUser ? 'justify-end' : 'justify-start'} mb-4;
+      div.innerHTML = <div class="message ${isUser ? 'user' : 'bot'}">${text}</div>;
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
+    }
+    function enviarChat() {
+      const input = document.getElementById('chatInput');
+      const texto = input.value.trim();
+      if (!texto) return;
+      addChatMessage(texto, true);
+      input.value = '';
+      setTimeout(() => addChatMessage("🤖 Entendi! O que mais precisa analisar?", false), 600);
+    }
+
+    // === GERADOR DE VÍDEO (TOP!) ===
+    function gerarVideo() {
+      const texto = document.getElementById('videoText').value.trim();
+      if (!texto) return alert('Digite a descrição do vídeo!');
+
+      const style = document.getElementById('style').value;
+      const duration = document.getElementById('duration').value;
+
+      const prompt = Crie um vídeo de alta qualidade ${duration} segundos: ${texto}. Estilo ${style}, iluminação cinematográfica, movimento suave, 4K, cores vibrantes, câmera dinâmica, detalhes realistas, sem texto na tela.;
+
+      navigator.clipboard.writeText(prompt);
+      alert('✅ Prompt perfeito copiado!\n\nAbrindo Kling AI agora... Cole o prompt lá e gere o vídeo em segundos!');
+
+      window.open('https://kling.ai', '_blank');
+    }
+
+    // Mensagem inicial do chat
+    addChatMessage("Olá Tiago! 🤖 Estou pronto. Use a aba 🎥 para gerar vídeos incríveis!", false);
+    showTab(0);
+  </script>
 </body>
 </html>
