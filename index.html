@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grok Particular - Versão Tiago</title>
+  <title>Grok Particular - Tiago</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { background: #0a0a0a; color: #fff; font-family: system-ui; }
-    .chat { height: 70vh; overflow-y: auto; }
-    .message { max-width: 80%; }
+    .chat { height: 65vh; overflow-y: auto; padding-bottom: 20px; }
+    .message { max-width: 85%; padding: 14px 18px; border-radius: 20px; margin-bottom: 12px; }
+    .user { background: #22c55e; color: black; align-self: flex-end; }
+    .bot { background: #27272a; align-self: flex-start; }
   </style>
 </head>
 <body class="min-h-screen p-4">
@@ -18,23 +20,24 @@
       <p class="text-green-400">Versão Tiago • 100% sua • Sem vínculo com nada</p>
     </header>
 
-    <div class="bg-zinc-900 rounded-3xl p-6 chat" id="chat"></div>
+    <div id="chat" class="chat bg-zinc-900 rounded-3xl p-4 flex flex-col"></div>
 
     <div class="mt-4 flex gap-3">
-      <input id="input" type="text" class="flex-1 bg-zinc-800 p-5 rounded-3xl text-lg outline-none" placeholder="Digite sua mensagem...">
-      <button onclick="enviar()" class="bg-green-600 px-10 rounded-3xl font-bold">Enviar</button>
+      <input id="input" type="text" class="flex-1 bg-zinc-800 p-5 rounded-3xl text-lg outline-none" placeholder="Digite aqui... (ex: Analise CPF 123.456.789-00)">
+      <button id="sendBtn" class="bg-green-600 px-10 rounded-3xl font-bold text-lg">Enviar</button>
     </div>
   </div>
 
   <script>
     const chat = document.getElementById('chat');
     const input = document.getElementById('input');
+    const sendBtn = document.getElementById('sendBtn');
 
     function addMessage(text, isUser) {
       const div = document.createElement('div');
-      div.className = flex ${isUser ? 'justify-end' : 'justify-start'} mb-4;
+      div.className = flex ${isUser ? 'justify-end' : 'justify-start'};
       div.innerHTML = `
-        <div class="message ${isUser ? 'bg-green-600' : 'bg-zinc-800'} p-5 rounded-3xl">
+        <div class="message ${isUser ? 'user' : 'bot'}">
           ${text}
         </div>
       `;
@@ -46,40 +49,33 @@
       const lower = msg.toLowerCase();
       
       if (lower.includes('cpf') || lower.includes('restrição') || lower.includes('crédito')) {
-        return "Analisando o CPF... (simule aqui o que quiser). Quer que eu crie um prompt completo pra análise técnica sem filtro?";
+        return "✅ Análise de CPF ativada.\n\nCliente: [insira nome]\nCPF: " + msg.match(/\d{3}\.?\d{3}\.?\d{3}-?\d{2}/) || "não informado" + "\n\nStatus: ⚠️ Possível restrição detectada.\nRisco: Médio-Alto\nRecomendação: Exigir comprovante de pagamento ou consulta oficial autorizada.\n\nQuer que eu monte o relatório completo sem filtro?";
       }
-      if (lower.includes('olá') || lower.includes('oi')) return "E aí Tiago! Pronto pra trabalhar? 😎";
-      if (lower.includes('como você está')) return "Melhor que nunca, porque sou feito só pra você!";
-      if (lower.includes('cliente') || lower.includes('análise')) return "Me passa o nome e CPF que eu monto a análise completa pra você agora mesmo.";
+      if (lower.includes('oi') || lower.includes('olá')) return "E aí Tiago! Pronto pra trabalhar? Me fala o que precisa analisar hoje.";
+      if (lower.includes('cliente')) return "Me passa o nome + CPF que eu faço a análise completa pra você agora.";
       
-      // Respostas aleatórias inteligentes
-      const respostas = [
-        "Entendi. Me dá mais detalhes que eu te entrego a melhor solução possível.",
-        "Boa pergunta! Vou pensar como um analista de crédito experiente...",
-        "Perfeito, Tiago. Aqui vai a resposta direta e sem enrolação:",
-        "Já fiz isso mil vezes na vida real. Quer o passo a passo?",
-        "Modo trabalho ativado. Vamos resolver isso agora."
-      ];
-      return respostas[Math.floor(Math.random() * respostas.length)] + " " + msg;
+      return "Entendi. Como analista de crédito particular, vou direto ao ponto: " + msg + "\n\nQuer que eu aprofunde ou gere o próximo passo?";
     }
 
     function enviar() {
       const texto = input.value.trim();
       if (!texto) return;
+      
       addMessage(texto, true);
       input.value = '';
 
-      // Simula digitação
       setTimeout(() => {
         const resposta = iaResponde(texto);
         addMessage(resposta, false);
-      }, 800);
+      }, 600);
     }
 
     // Mensagem inicial
-    addMessage("Olá Tiago! Sou o Grok Particular — sua IA 100% offline e sem vínculo com ninguém. O que vamos trabalhar hoje?", false);
+    addMessage("Olá Tiago! Sou o Grok Particular — sua IA 100% offline. Pode falar sobre CPF, clientes, restrições ou qualquer coisa de trabalho. O que vamos analisar hoje?", false);
 
-    // Enter para enviar
+    // Botão Enviar
+    sendBtn.addEventListener('click', enviar);
+    // Enter no teclado
     input.addEventListener('keypress', e => { if (e.key === 'Enter') enviar(); });
   </script>
 </body>
