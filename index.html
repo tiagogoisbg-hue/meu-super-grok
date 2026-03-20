@@ -7,60 +7,39 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { background: #0a0a0a; color: #fff; font-family: system-ui; }
-    .message { max-width: 85%; padding: 14px 18px; border-radius: 20px; margin-bottom: 12px; }
-    .user { background: #22c55e; color: black; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .chat { height: 58vh; overflow-y: auto; background: #111; border-radius: 20px; padding: 15px; }
+    .message { max-width: 85%; padding: 14px 18px; border-radius: 18px; margin-bottom: 12px; }
+    .user { background: #22c55e; color: black; margin-left: auto; }
     .bot { background: #27272a; }
   </style>
 </head>
 <body class="min-h-screen p-4">
   <div class="max-w-4xl mx-auto">
-    <header class="text-center mb-6">
-      <h1 class="text-5xl font-bold flex items-center justify-center gap-3">🚀 Grok Particular <span class="text-4xl">🤖</span></h1>
-      <p class="text-green-400">Versão Tiago • 100% sua</p>
-    </header>
+    <h1 class="text-5xl font-bold text-center mb-2">🚀 Grok Particular 🤖</h1>
+    <p class="text-green-400 text-center mb-8">Versão Tiago • 100% sua</p>
 
     <!-- ABAS -->
-    <div class="flex gap-2 mb-8 border-b border-gray-800 pb-1">
-      <button onclick="showTab(0)" class="tab-btn active px-8 py-3 rounded-2xl text-lg">💬 Bate-Papo</button>
-      <button onclick="showTab(1)" class="tab-btn px-8 py-3 rounded-2xl text-lg">🎥 Gerar Vídeo</button>
+    <div class="flex mb-6 border-b border-gray-700">
+      <button onclick="showTab(0)" id="btn0" class="flex-1 py-4 font-medium border-b-4 border-green-500">💬 Bate-Papo</button>
+      <button onclick="showTab(1)" id="btn1" class="flex-1 py-4 font-medium">🎥 Gerar Vídeo</button>
     </div>
 
-    <!-- TAB 0: Bate-Papo (mantido) -->
-    <div id="tab0" class="tab-content">
-      <div id="chat" class="h-96 bg-zinc-900 rounded-3xl p-4 overflow-y-auto"></div>
+    <!-- BATE-PAPO (IA dentro do app) -->
+    <div id="tab0" class="tab-content active">
+      <div id="chat" class="chat flex flex-col"></div>
       <div class="mt-4 flex gap-3">
-        <input id="chatInput" type="text" class="flex-1 bg-zinc-800 p-5 rounded-3xl text-lg" placeholder="Digite aqui...">
-        <button onclick="enviarChat()" class="bg-green-600 px-8 rounded-3xl font-bold">Enviar</button>
+        <input id="input" class="flex-1 bg-zinc-800 p-5 rounded-3xl text-lg outline-none" placeholder="Digite aqui...">
+        <button onclick="enviar()" class="bg-green-600 px-10 rounded-3xl font-bold">Enviar</button>
       </div>
     </div>
 
-    <!-- TAB 1: GERADOR DE VÍDEO (A NOVA TOP!) -->
-    <div id="tab1" class="tab-content hidden">
-      <h2 class="text-3xl font-bold mb-6">🎥 Gerador de Vídeo IA</h2>
-      
-      <textarea id="videoText" class="w-full h-40 bg-zinc-900 p-6 rounded-3xl text-lg" placeholder="Descreva o vídeo que quer gerar... (ex: Um homem andando na praia ao pôr do sol, estilo cinematográfico)"></textarea>
-
-      <div class="grid grid-cols-2 gap-4 mt-6">
-        <div>
-          <label class="block text-sm mb-2">Estilo</label>
-          <select id="style" class="w-full bg-zinc-800 p-4 rounded-3xl">
-            <option value="cinemático">🎬 Cinemático</option>
-            <option value="realista">📸 Realista</option>
-            <option value="anime">🌸 Anime</option>
-            <option value="futurista">🔮 Futurista</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-sm mb-2">Duração</label>
-          <select id="duration" class="w-full bg-zinc-800 p-4 rounded-3xl">
-            <option value="5">5 segundos</option>
-            <option value="10" selected>10 segundos</option>
-            <option value="15">15 segundos</option>
-          </select>
-        </div>
-      </div>
-
-      <button onclick="gerarVideo()" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 py-6 rounded-3xl text-2xl font-bold mt-8 hover:scale-105 transition">
+    <!-- GERAR VÍDEO -->
+    <div id="tab1" class="tab-content">
+      <h2 class="text-3xl font-bold mb-6">🎥 Gerar Vídeo</h2>
+      <textarea id="videoText" class="w-full h-40 bg-zinc-900 p-6 rounded-3xl text-lg" placeholder="Descreva o vídeo..."></textarea>
+      <button onclick="gerarVideo()" class="w-full mt-8 bg-gradient-to-r from-purple-600 to-pink-600 py-7 rounded-3xl text-2xl font-bold">
         GERAR VÍDEO AGORA
       </button>
     </div>
@@ -68,49 +47,46 @@
 
   <script>
     function showTab(n) {
-      document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
-      document.getElementById('tab' + n).classList.remove('hidden');
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.tab-btn')[n].classList.add('active');
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.getElementById('tab' + n).classList.add('active');
+      document.getElementById('btn0').classList.toggle('border-green-500', n === 0);
+      document.getElementById('btn1').classList.toggle('border-green-500', n === 1);
     }
 
-    // === CHAT (mantido) ===
-    function addChatMessage(text, isUser) {
-      const chat = document.getElementById('chat');
+    const chat = document.getElementById('chat');
+    function addMessage(text, isUser) {
       const div = document.createElement('div');
-      div.className = flex ${isUser ? 'justify-end' : 'justify-start'} mb-4;
+      div.className = flex ${isUser ? 'justify-end' : 'justify-start'};
       div.innerHTML = <div class="message ${isUser ? 'user' : 'bot'}">${text}</div>;
       chat.appendChild(div);
       chat.scrollTop = chat.scrollHeight;
     }
-    function enviarChat() {
-      const input = document.getElementById('chatInput');
-      const texto = input.value.trim();
-      if (!texto) return;
-      addChatMessage(texto, true);
-      input.value = '';
-      setTimeout(() => addChatMessage("🤖 Entendi! O que mais precisa analisar?", false), 600);
+
+    function iaResponde(msg) {
+      if (msg.toLowerCase().includes('cpf') || msg.toLowerCase().includes('crédito')) return "🤖 Analisando CPF... Me passa o número completo que eu faço a análise detalhada pra você.";
+      return "🤖 Entendi Tiago! Me dá mais detalhes que eu te ajudo agora.";
     }
 
-    // === GERADOR DE VÍDEO (TOP!) ===
+    function enviar() {
+      const input = document.getElementById('input');
+      const texto = input.value.trim();
+      if (!texto) return;
+      addMessage(texto, true);
+      input.value = '';
+      setTimeout(() => addMessage(iaResponde(texto), false), 600);
+    }
+
     function gerarVideo() {
       const texto = document.getElementById('videoText').value.trim();
       if (!texto) return alert('Digite a descrição do vídeo!');
-
-      const style = document.getElementById('style').value;
-      const duration = document.getElementById('duration').value;
-
-      const prompt = Crie um vídeo de alta qualidade ${duration} segundos: ${texto}. Estilo ${style}, iluminação cinematográfica, movimento suave, 4K, cores vibrantes, câmera dinâmica, detalhes realistas, sem texto na tela.;
-
+      const prompt = Vídeo de alta qualidade: ${texto}. Estilo cinematográfico, movimento suave, 4K.;
       navigator.clipboard.writeText(prompt);
-      alert('✅ Prompt perfeito copiado!\n\nAbrindo Kling AI agora... Cole o prompt lá e gere o vídeo em segundos!');
-
+      alert('✅ Prompt copiado! Abrindo Kling AI agora...');
       window.open('https://kling.ai', '_blank');
     }
 
-    // Mensagem inicial do chat
-    addChatMessage("Olá Tiago! 🤖 Estou pronto. Use a aba 🎥 para gerar vídeos incríveis!", false);
-    showTab(0);
+    // Início
+    addMessage("Olá Tiago! 🤖 Sou sua IA particular. O que vamos fazer hoje? (Digite algo ou use a aba de vídeo)", false);
   </script>
 </body>
 </html>
