@@ -1,110 +1,83 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grok Particular - Tiago</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body { background: #0a0a0a; color: #fff; font-family: system-ui; }
-    .card { transition: all 0.3s; }
-    .card:hover { transform: translateY(-4px); background: #1f1f1f; }
-    .tab-btn.active { background-color: #22c55e; color: black; font-weight: 600; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeGlobal • BR 10 2025 027221 0</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+        body { background: #0a0a0a; color: #e0e0e0; font-family: 'Inter', sans-serif; margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 900px; margin: 40px auto; background: #111111; padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0, 255, 100, 0.25); border: 1px solid #00ff64; }
+        h1 { color: #00ff64; text-align: center; font-size: 2.4em; }
+        h2 { text-align: center; color: #00cc50; font-weight: 400; }
+        .subtitle { text-align: center; color: #00ff64; font-size: 1.1em; margin-bottom: 30px; }
+        label { display: block; margin: 25px 0 10px; font-weight: 600; color: #ddd; }
+        textarea { width: 100%; min-height: 160px; background: #1a1a1a; color: #fff; border: 2px solid #00ff64; border-radius: 12px; padding: 18px; font-size: 16px; resize: vertical; }
+        button { background: #00ff64; color: #000; border: none; padding: 14px 32px; font-size: 17px; font-weight: 600; border-radius: 10px; cursor: pointer; margin: 0 8px; transition: all 0.3s; }
+        button:hover { background: #00cc50; transform: translateY(-2px); }
+        #output { background: #1a1a1a; padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid #00ff64; white-space: pre-wrap; font-size: 15px; line-height: 1.5; display: none; }
+        .rules { font-size: 13px; color: #00ff64; text-align: center; margin-top: 25px; font-style: italic; }
+        .footer { text-align: center; font-size: 12px; color: #555; margin-top: 40px; }
+    </style>
 </head>
-<body class="min-h-screen p-4">
-  <div class="max-w-5xl mx-auto">
-    <header class="text-center mb-10 pt-6">
-      <h1 class="text-5xl font-bold mb-2">🚀 Meu Super Grok Particular</h1>
-      <p class="text-gray-400 text-xl">Seu hub 100% grátis</p>
-    </header>
+<body>
+    <div class="container">
+        <h1>SafeGlobal</h1>
+        <h2>Sistema Patenteado BR 10 2025 027221 0</h2>
+        <p class="subtitle">Intermediação Segura de Locação com Biometria, Escrow, Score e Expulsão Blockchain</p>
 
-    <!-- ABAS -->
-    <div class="flex flex-wrap gap-2 mb-8 border-b border-gray-800 pb-1">
-      <button onclick="showTab(0)" class="tab-btn active px-6 py-3 rounded-2xl text-lg">📋 Prompts</button>
-      <button onclick="showTab(1)" class="tab-btn px-6 py-3 rounded-2xl text-lg">📝 Notas</button>
-      <button onclick="showTab(2)" class="tab-btn px-6 py-3 rounded-2xl text-lg">🔎 Busca</button>
-      <button onclick="showTab(3)" class="tab-btn px-6 py-3 rounded-2xl text-lg">🎥 Gerar Vídeo</button>
-      <button onclick="showTab(4)" class="tab-btn px-6 py-3 rounded-2xl text-lg">🔗 Links</button>
+        <label>Descreva o bem ou o cenário de locação (imóvel, carro, equipamento, barco, avião...):</label>
+        <textarea id="idea" placeholder="Exemplo: Casa de 3 quartos em Morrinhos-GO por 15 dias, locatário com score B, risco de dano no sofá..."></textarea>
+
+        <div style="text-align:center; margin:25px 0;">
+            <button onclick="gerarPrompt()">Gerar Descrição Patenteada SafeGlobal</button>
+            <button onclick="copiarPrompt()">Copiar Prompt</button>
+        </div>
+
+        <div id="output"></div>
+
+        <p class="rules">
+            ⚠️ Sistema protegido pela patente BR 10 2025 027221 0 + adições. Tudo gerado com biometria, escrow, score A-E, expulsão irreversível em blockchain e contrato ICP-Brasil.
+        </p>
+
+        <div class="footer">
+            Hub Privado • meu-super-grok • Tiago Rodrigues • SafeGlobal 2026
+        </div>
     </div>
 
-    <!-- TAB 0: PROMPTS (do primeiro código) -->
-    <div id="tab0" class="tab-content">
-      <h2 class="text-3xl font-semibold mb-6">📋 18 Prompts Poderosos</h2>
-      <div class="grid md:grid-cols-2 gap-4">
-        <div class="card bg-zinc-900 p-6 rounded-3xl cursor-pointer" onclick="copyPrompt(this)">Escreva um texto viral pro Instagram/Reels sobre [tópico]</div>
-        <div class="card bg-zinc-900 p-6 rounded-3xl cursor-pointer" onclick="copyPrompt(this)">Gere 10 ideias de negócio com R$ 1.000</div>
-        <!-- (os outros 16 prompts estão aqui no código completo) -->
-      </div>
-    </div>
+    <script>
+        const systemPrompt = `Você é o sistema patenteado BR 10 2025 027221 0 (SafeGlobal) — plataforma global de intermediação segura de locação de qualquer bem (imóveis, veículos, equipamentos, barcos, aviões etc.).
 
-    <!-- TAB 1: NOTAS -->
-    <div id="tab1" class="tab-content hidden">
-      <h2 class="text-3xl font-semibold mb-6">📝 Bloco de Notas</h2>
-      <textarea id="notes" class="w-full h-96 bg-zinc-900 p-8 rounded-3xl text-lg"></textarea>
-    </div>
+Regras obrigatórias da patente (nunca quebre):
+- Sempre mencionar biometria facial + prova de vivacidade, score reputacional A-E cross-plataforma, escrow condicional, compensação automática de prejuízo, expulsão irreversível via blockchain (Polygon), contrato ICP-Brasil e hash registrado.
+- Usar linguagem profissional, clara e segura.
+- Mostrar exatamente como o SafeGlobal resolve o problema descrito.
+- No final, incluir gamificação: Pontos de confiança ganhos + streak + badge.
 
-    <!-- TAB 2: BUSCA -->
-    <div id="tab2" class="tab-content hidden">
-      <h2 class="text-3xl font-semibold mb-6">🔎 Busca em Tempo Real</h2>
-      <input id="searchInput" type="text" class="w-full bg-zinc-900 p-8 rounded-3xl text-2xl mb-8" placeholder="Digite o que quer pesquisar...">
-      <div class="grid md:grid-cols-3 gap-4">
-        <button onclick="doSearch('https://www.perplexity.ai/search?q=')" class="bg-blue-600 p-8 rounded-3xl">Perplexity</button>
-        <button onclick="doSearch('https://google.com/search?q=')" class="bg-green-600 p-8 rounded-3xl">Google</button>
-      </div>
-    </div>
+Formato de resposta obrigatório:
+1. *Título* (curto e impactante)
+2. *Como o SafeGlobal resolve* (explicação completa e patenteada)
+3. *Fim da sessão segura* — Todos os dados foram deletados conforme a patente.
+   Pontos de confiança: X | Streak: Y | Badge: Z`;
 
-    <!-- TAB 3: GERAR VÍDEO (o que você pediu) -->
-    <div id="tab3" class="tab-content hidden">
-      <h2 class="text-3xl font-semibold mb-6">🎥 Gerar Vídeo com IA</h2>
-      <textarea id="videoText" class="w-full h-52 bg-zinc-900 p-8 rounded-3xl text-lg" placeholder="Descreva o vídeo que quer gerar..."></textarea>
-      
-      <button onclick="gerarVideo()" class="w-full mt-8 bg-gradient-to-r from-purple-600 to-pink-600 py-7 rounded-3xl text-2xl font-bold">
-        GERAR VÍDEO AGORA
-      </button>
-    </div>
+        function gerarPrompt() {
+            const ideia = document.getElementById("idea").value.trim();
+            if (!ideia) { alert("Digite o cenário primeiro!"); return; }
+            const promptCompleto = systemPrompt + "\n\nCenário do usuário: " + ideia + "\n\nAgora gere a resposta completa no formato exato da patente SafeGlobal.";
+            
+            document.getElementById("output").innerHTML = `
+                <strong>Prompt pronto para colar no Grok:</strong><br><br>
+                <pre style="background:#222; padding:15px; border-radius:8px; overflow:auto; max-height:400px;">${promptCompleto}</pre>
+            `;
+            document.getElementById("output").style.display = "block";
+        }
 
-    <!-- TAB 4: LINKS -->
-    <div id="tab4" class="tab-content hidden">
-      <h2 class="text-3xl font-semibold mb-6">🔗 Links Rápidos</h2>
-      <a href="https://grok.com" target="_blank" class="block bg-purple-600 p-8 rounded-3xl text-center text-2xl">Abrir Super Grok</a>
-    </div>
-  </div>
-
-  <script>
-    function showTab(n) {
-      document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
-      document.getElementById('tab' + n).classList.remove('hidden');
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.tab-btn')[n].classList.add('active');
-    }
-
-    function copyPrompt(el) {
-      navigator.clipboard.writeText(el.textContent);
-      alert('✅ Prompt copiado!');
-    }
-
-    function doSearch(base) {
-      const q = document.getElementById('searchInput').value;
-      if (q) window.open(base + encodeURIComponent(q), '_blank');
-    }
-
-    function gerarVideo() {
-      const texto = document.getElementById('videoText').value.trim();
-      if (!texto) return alert('Digite a descrição do vídeo!');
-      
-      const prompt = Crie um vídeo de alta qualidade: ${texto}. Estilo cinematográfico, movimento suave, 4K, iluminação profissional.;
-      navigator.clipboard.writeText(prompt);
-      alert('✅ Prompt copiado! Abrindo o Kling AI agora...');
-      window.open('https://kling.ai', '_blank');
-    }
-
-    // Salvar notas
-    const notesArea = document.getElementById('notes');
-    if (localStorage.getItem('myNotes')) notesArea.value = localStorage.getItem('myNotes');
-    notesArea.addEventListener('input', () => localStorage.setItem('myNotes', notesArea.value));
-
-    showTab(0);
-  </script>
+        function copiarPrompt() {
+            const output = document.getElementById("output");
+            if (output.style.display === "none") { alert("Primeiro clique em Gerar!"); return; }
+            const texto = output.querySelector("pre").innerText;
+            navigator.clipboard.writeText(texto).then(() => alert("✅ Prompt copiado! Agora cole no Grok."));
+        }
+    </script>
 </body>
 </html>
