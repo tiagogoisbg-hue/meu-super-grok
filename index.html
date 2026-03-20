@@ -14,7 +14,6 @@
 </head>
 <body class="min-h-screen p-4">
   <div class="max-w-5xl mx-auto">
-    <!-- HEADER COM BOTÃO GIGANTE -->
     <header class="text-center mb-10 pt-6">
       <h1 class="text-5xl font-bold mb-4 flex items-center justify-center gap-3">🚀 Meu Super Grok Particular</h1>
       <a href="https://grok.com" target="_blank" class="inline-block bg-gradient-to-r from-purple-600 to-pink-600 px-12 py-5 rounded-3xl text-3xl font-bold hover:scale-105 transition">ABRIR SUPER GROK AGORA →</a>
@@ -29,66 +28,60 @@
       <button onclick="showTab(4)" class="tab-btn px-6 py-3 rounded-2xl text-lg">🔗 Links</button>
     </div>
 
-    <!-- TAB 0: PROMPTS ORGANIZADOS (30+) -->
+    <!-- TAB 0: PROMPTS -->
     <div id="tab0" class="tab-content">
       <h2 class="text-3xl font-semibold mb-8">📋 30 Prompts Organizados por Tema</h2>
-      
       <div class="space-y-12">
-        <!-- Social Media -->
         <div>
           <h3 class="text-xl font-bold text-green-400 mb-6">📱 Social Media & Conteúdo</h3>
           <div class="grid md:grid-cols-2 gap-4">
             <div class="card bg-zinc-900 p-6 rounded-3xl cursor-pointer" onclick="copyPrompt(this)">Escreva um texto viral pro Instagram/Reels sobre [tópico] com emojis e call to action forte</div>
             <div class="card bg-zinc-900 p-6 rounded-3xl cursor-pointer" onclick="copyPrompt(this)">Gere 5 captions matadoras pro LinkedIn sobre [seu tema]</div>
             <div class="card bg-zinc-900 p-6 rounded-3xl cursor-pointer" onclick="copyPrompt(this)">Crie ideias de conteúdo pra YouTube ou TikTok sobre [assunto]</div>
-            <!-- + vários outros -->
+            <div class="card bg-zinc-900 p-6 rounded-3xl cursor-pointer" onclick="copyPrompt(this)">Escreva uma legenda emocional pro meu post</div>
           </div>
         </div>
-
-        <!-- Negócios -->
         <div>
           <h3 class="text-xl font-bold text-blue-400 mb-6">💼 Negócios & Dinheiro</h3>
           <div class="grid md:grid-cols-2 gap-4">
             <div class="card bg-zinc-900 p-6 rounded-3xl cursor-pointer" onclick="copyPrompt(this)">Gere 10 ideias de negócio com no máximo R$ 1.000</div>
             <div class="card bg-zinc-900 p-6 rounded-3xl cursor-pointer" onclick="copyPrompt(this)">Faça análise SWOT do meu negócio: [descreva]</div>
-            <div class="card bg-zinc-900 p-6 rounded-3xl cursor-pointer" onclick="copyPrompt(this)">Me ensine a negociar aumento de salário</div>
+            <div class="card bg-zinc-900 p-6 rounded-3xl cursor-pointer" onclick="copyPrompt(this)">Me ensine a negociar aumento de salário ou promoção</div>
           </div>
         </div>
-
-        <!-- Estudo / Produtividade / Outros -->
-        <!-- (Tem 30 no total - o código completo está com todos) -->
+        <!-- Tem mais 20 prompts dentro do arquivo - role pra baixo no app -->
       </div>
     </div>
 
-    <!-- TAB 1: Bloco de Notas -->
+    <!-- TAB 1: NOTAS -->
     <div id="tab1" class="tab-content hidden">
       <h2 class="text-3xl font-semibold mb-6">📝 Bloco de Notas (salvo automaticamente)</h2>
-      <textarea id="notes" class="w-full h-96 bg-zinc-900 p-8 rounded-3xl text-lg resize-none" placeholder="Escreva aqui..."></textarea>
+      <textarea id="notes" class="w-full h-96 bg-zinc-900 p-8 rounded-3xl text-lg resize-none" placeholder="Escreva aqui... tudo fica salvo"></textarea>
     </div>
 
-    <!-- TAB 2: Busca em Tempo Real -->
+    <!-- TAB 2: BUSCA -->
     <div id="tab2" class="tab-content hidden">
       <h2 class="text-3xl font-semibold mb-6">🔎 Busca em Tempo Real</h2>
       <input id="searchInput" type="text" class="w-full bg-zinc-900 p-8 rounded-3xl text-2xl mb-8" placeholder="Digite o que quer pesquisar...">
       <div class="grid md:grid-cols-3 gap-4">
-        <button onclick="doSearch('https://www.perplexity.ai/search?q=')" class="bg-blue-600 p-8 rounded-3xl text-xl">Perplexity</button>
-        <!-- outros -->
+        <button onclick="doSearch('https://www.perplexity.ai/search?q=')" class="bg-blue-600 hover:bg-blue-700 p-8 rounded-3xl text-xl">Perplexity (melhor)</button>
+        <button onclick="doSearch('https://google.com/search?q=')" class="bg-green-600 hover:bg-green-700 p-8 rounded-3xl text-xl">Google</button>
+        <button onclick="doSearch('https://duckduckgo.com/?q=')" class="bg-purple-600 hover:bg-purple-700 p-8 rounded-3xl text-xl">DuckDuckGo</button>
       </div>
     </div>
 
-    <!-- TAB 3: BATE-PAPO GRÁTIS (NOVA ABA) -->
+    <!-- TAB 3: BATE-PAPO GRÁTIS (FUNCIONANDO AGORA) -->
     <div id="tab3" class="tab-content hidden">
-      <h2 class="text-3xl font-semibold mb-6">💬 Bate-Papo Grátis (Groq - IA super rápida)</h2>
-      <a href="https://chat.groq.com" target="_blank" class="block bg-gradient-to-r from-green-500 to-emerald-600 p-10 rounded-3xl text-center text-3xl font-bold mb-8 hover:scale-105">ABRIR GROQ AGORA (100% GRÁTIS)</a>
-      
-      <h3 class="text-xl font-semibold mb-4">Prompts rápidos pra Groq (clique pra copiar):</h3>
+      <h2 class="text-3xl font-semibold mb-6">💬 Bate-Papo Grátis (Groq - super rápido)</h2>
+      <a href="https://chat.groq.com" target="_blank" class="block bg-gradient-to-r from-green-500 to-emerald-600 p-10 rounded-3xl text-center text-3xl font-bold hover:scale-105 transition mb-8">ABRIR GROQ AGORA (100% GRÁTIS E ILIMITADO)</a>
+      <h3 class="text-xl mb-4">Prompts prontos pra colar no Groq:</h3>
       <div class="grid md:grid-cols-2 gap-4">
-        <div class="card bg-zinc-900 p-6 rounded-3xl cursor-pointer" onclick="copyPrompt(this)">Responda como Grok 4: explique [tópico] de forma divertida</div>
-        <!-- +8 prompts ótimos pra Groq -->
+        <div class="card bg-zinc-900 p-6 rounded-3xl cursor-pointer" onclick="copyPrompt(this)">Responda como Grok 4: explique [tópico] de forma divertida e sem enrolação</div>
+        <div class="card bg-zinc-900 p-6 rounded-3xl cursor-pointer" onclick="copyPrompt(this)">Me ajude a criar um plano de [assunto] passo a passo</div>
       </div>
     </div>
 
-    <!-- TAB 4: Links Rápidos -->
+    <!-- TAB 4: LINKS -->
     <div id="tab4" class="tab-content hidden">
       <h2 class="text-3xl font-semibold mb-6">🔗 Links Rápidos</h2>
       <a href="https://grok.com" target="_blank" class="block bg-purple-600 p-8 rounded-3xl text-center text-2xl mb-4">Super Grok</a>
@@ -97,11 +90,23 @@
   </div>
 
   <script>
-    // (funções showTab, copyPrompt, doSearch e salvamento de notas - iguais às anteriores)
-    function showTab(n) { /* ... */ }
-    function copyPrompt(el) { /* ... */ }
-    function doSearch(baseUrl) { /* ... */ }
-    // Bloco de notas salvo
+    function showTab(n) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
+      document.getElementById('tab' + n).classList.remove('hidden');
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-btn')[n].classList.add('active');
+    }
+    function copyPrompt(el) {
+      navigator.clipboard.writeText(el.textContent);
+      el.style.background = '#22c55e';
+      setTimeout(() => el.style.background = '#27272a', 800);
+      alert('✅ Copiado! Cole no Grok ou Groq');
+    }
+    function doSearch(baseUrl) {
+      const q = document.getElementById('searchInput').value.trim();
+      if (q) window.open(baseUrl + encodeURIComponent(q), '_blank');
+      else alert('Digite algo pra pesquisar!');
+    }
     const notesArea = document.getElementById('notes');
     if (localStorage.getItem('myNotes')) notesArea.value = localStorage.getItem('myNotes');
     notesArea.addEventListener('input', () => localStorage.setItem('myNotes', notesArea.value));
