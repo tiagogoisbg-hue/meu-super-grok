@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Imagem do Projeto</title>
+  <style>
+    body {
+      background: #0f0f0f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    img {
+      max-width: 95%;
+      border-radius: 20px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.9);
+      border: 8px solid #222;
+    }
+  </style>
+</head>
+<body>
+  <img src="mulher-pose.jpg" alt="Mulher pose detalhada - Projeto">
+</body>
+</html>
